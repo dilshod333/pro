@@ -1,0 +1,80 @@
+syntax="proto3";
+
+option go_package="/genuser";
+
+service UserService{
+    rpc Register(UserRegisterRequest) returns(Resp);
+    rpc Verify(CodeReqest) returns (CodeResponse);
+    rpc Login(UserLoginRequest) returns(UserLoginResponse);
+    rpc Profile(ProfileReq) returns(ProfileResp);
+    rpc GetById(GetByIdReq) returns(GetResponse);
+}
+
+
+message UserRegisterRequest{
+    string username=1;
+    string email=2;
+    string password_hash=3;
+    Profile profile=4;
+
+    message Profile {
+        string name=1;
+        string address=2;    
+    }    
+}
+
+message Resp{
+    string message=1;    
+}
+
+message CodeReqest{
+    string email=1;
+    string code=2;    
+}
+
+message CodeResponse{
+    string user_id=1;
+    string token=2;
+    string message=3;    
+}
+
+message UserResponse {
+    string user_id=1;
+    string username=2;
+    string email=3;
+    string password_hash=4;
+    Profile profile=5;
+
+    message Profile {
+        string name=1;
+        string address=2;    
+    }    
+}
+
+
+message UserLoginRequest{
+    string email=1;
+    string password=2;    
+}
+
+
+message UserLoginResponse{
+    string message=1;
+    string token=2;    
+}
+
+message ProfileReq{
+    string name=1;
+    
+}
+message ProfileResp{
+    UserResponse user=1;    
+}
+
+message GetByIdReq {
+    string user_id=1;    
+}
+
+message GetResponse{
+    UserResponse user=1;    
+}

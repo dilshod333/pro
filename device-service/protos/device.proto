@@ -1,0 +1,74 @@
+syntax="proto3";
+
+option go_package="./gendevice";
+
+message CreateDeviceRequest{
+    string user_id=1;
+    string device_type=2;
+    string device_name=3;
+    string device_status=4;
+    string configuration_settings=5;
+    string location=6;
+
+}
+
+
+message CreateDeviceResp{
+    string device_id=1;
+    string name=2;
+    CreateDeviceRequest Device=3;
+    string last_updated=4;
+}
+
+
+
+message UpdateDeviceRequest{
+    string device_id=1;
+    string device_type=2;
+    string device_name=3;
+    string device_status=4;
+    string configuration_settings=5;
+    string location=6;
+}
+
+message UpdateDeviceResp{
+    string device_id=1;
+    string device_type=2;
+    string device_name=3;
+    string device_status=4;
+    string configuration_settings=5;
+    string location=6;
+    string last_updated=7;
+}
+
+
+message DeleteDeviceReq {
+    string device_id=1;
+}
+
+message DeleteResp {
+    string message=1;
+}
+
+
+
+message DeviceControlReq {
+    string command_id=1;
+    string device_id=2;
+    string user_id=3;
+    string command_type=4;
+    string command_payload=5;
+    string timestamp=6;
+    string status=7;
+}
+
+message DeviceControlResp {
+    string message=1;
+}
+
+service DeviceServer {
+    rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResp);
+    rpc UpdateDevice(UpdateDeviceRequest) returns (UpdateDeviceResp);
+    rpc DeleteById(DeleteDeviceReq) returns (DeleteResp);
+    rpc Create(DeviceControlReq) returns (DeviceControlResp);
+}
