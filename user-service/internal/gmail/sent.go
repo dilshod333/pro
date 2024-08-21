@@ -34,7 +34,8 @@ func SendEmail(to string) (code string) {
 	body := fmt.Sprintf("Your confirmation code is: %s", code)
 
 	if err := sendEmail(to, subject, body); err != nil {
-		log.Fatalf("Failed to send email: %v", err)
+		log.Printf("Failed to send email: %v", err)
+		return 
 	}
 
 	return code
